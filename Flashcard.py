@@ -5,6 +5,24 @@ user_flashcard_confidence = {}
 flashcard_xp_awarded = False
 current_username = ""
 
+# Stores the users confidence for the flashcards
+def set_confidence(term, RAG):
+    user_flashcard_confidence[term] = RAG
+
+# Calculate RAG confidence counts from flashcards 
+def RAG_scores():
+    red = 0
+    amber = 0
+    green = 0
+    for level in user_flashcard_confidence.values():
+        if level == 1:
+            red = red + 1
+        elif level == 2:
+            amber = amber + 1
+        elif level == 3:
+            green = green + 1
+    return red, amber, green
+
 elif game_state == "Flashcards_Page":
         main_pages_layout()
         text_line("FLASHCARDS", FONT, BLACK, 500, 10)
