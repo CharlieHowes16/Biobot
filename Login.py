@@ -1,3 +1,11 @@
+# Button settings - Buttons for login page
+username_input_box = pygame.Rect(450, 250, 300, 60)
+password_input_box = pygame.Rect(450, 330, 300, 60)
+show_password_box = pygame.Rect(790, 330, 100, 60)
+login_box = pygame.Rect(450, 420, 300, 60)
+create_box = pygame.Rect(850, 700, 300, 60)
+create_account_submit_box = pygame.Rect(450, 420, 300, 60)
+
 # Validates the username and password before checking in the database if they are correct
 def existing_account_verification(username, password):
     special_characters = string.punctuation
