@@ -23,3 +23,12 @@ elif game_state == "Chatbot_Page":
         pygame.draw.rect(screen, WHITE, chatbot_message_box)
         pygame.draw.rect(screen, BLACK, chatbot_message_box, 2)
         text_line(chatbot_message, SMALL_FONT, BLACK, 280, 120)
+
+
+
+# Chatbot variables
+chatbot_greeting_displayed = False
+chatbot_message = ""
+chatbot_message_box = pygame.Rect(270, 110, 860, 60)
+chatbot_user_typing_box = pygame.Rect(260, 700, 600, 50)
+chatbot_user_typing_text = ""
