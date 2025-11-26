@@ -9,7 +9,7 @@ DARK_GREEN = (116, 167, 99)
 RED = (255, 0, 0)
 GREY = (128, 128, 128)
 
-pygame.font.init()
+pygame.font.init() # Initialize the font 
 
 # Fonts for all pages
 FONT = pygame.font.SysFont("arialblack", 40)
@@ -17,7 +17,7 @@ SMALL_FONT = pygame.font.SysFont("arial", 30)
 BOLD_FONT = pygame.font.SysFont("arial", 30, bold = True)
 ERROR_FONT = pygame.font.SysFont("arial", 15, bold = True)
 
-# Button click timing which prevents rapid clicking
+# Button click timing to prevent user rapid clicking
 last_click_time = 0
 CLICK_DELAY = 300
 
@@ -44,3 +44,16 @@ def clickable_button(screen, text, rect, base_color, hover_color):
     screen.blit(text_surface, text_rect)
 
     return clicked
+
+def text_wrapping(text, width):
+    words = text.split()
+    lines = []
+    current_line = ''
+    for word in words:
+        if len(current_line) + len(word) <= width:
+            current_line += (word + ' ')
+        else:
+            lines.append(current_line.strip())
+            current_line = word + ' '
+    lines.append(current_line.strip())
+    return '\n'.join(lines)
