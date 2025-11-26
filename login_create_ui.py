@@ -6,29 +6,33 @@ from ui.config import *
 def login_page(screen, username, password, typing, show_password_flag, error_message,
                username_input_box, password_input_box, show_password_box, 
                login_box, create_box, game_state, current_time, last_click_time):
-
-    text_line(screen, "BioBot", FONT, WHITE, 520, 60)
+    
+    text_line(screen, "BioBot", FONT, WHITE, 520, 60) # Displays title for login page 
     text_line(screen, "Login", SMALL_FONT, WHITE, 555, 140)
 
-    button_text_username = username if username or typing == "username" else "Username"
+    button_text_username = username if username or typing == "username" else "Username" # Placeholder text for username unless the user starts to type 
 
+    # If clicked the password becomes visible 
     if show_password_flag:
         button_text_password = password if password or typing == "password" else "Password"
     else:
         button_text_password = "*" * len(password) if password or typing == "password" else "Password"
 
+    # Draws buttons for the username and password to be entered
     clickable_button(screen, button_text_username, username_input_box, DARK_GREEN, WHITE)
     clickable_button(screen, button_text_password, password_input_box, DARK_GREEN, WHITE)
 
     button_writing = "Hide" if show_password_flag else "Show"
     clickable_button(screen, button_writing, show_password_box, DARK_GREEN, WHITE)
 
+    # Buttons for changing between login and create account 
     login_pressed = clickable_button(screen, "Login", login_box, DARK_GREEN, WHITE)
     create_account_nav_pressed = clickable_button(screen, "Create Account", create_box, DARK_GREEN, WHITE)
 
-    if error_message:
+    if error_message: # Displays an error message if an invalid username or password is entered 
         text_line(screen, error_message, ERROR_FONT, RED, 420, 500)
 
+    # Allows for changing between pages with time delay between clicking 
     if login_pressed and (current_time - last_click_time > CLICK_DELAY):
         game_state, error_message, username  = existing_account_verification(username, password)
         last_click_time = current_time
@@ -45,28 +49,32 @@ def create_account_page(screen, username, password, typing, show_password_flag, 
                         username_input_box, password_input_box, show_password_box,
                         create_account_submit_box, create_box, game_state, current_time, last_click_time):
 
-    text_line(screen, "BioBot", FONT, WHITE, 520, 60)
+    text_line(screen, "BioBot", FONT, WHITE, 520, 60)  # Displays title for login page
     text_line(screen, "Account Creation", SMALL_FONT, WHITE, 500, 140)
 
-    button_text_username = username if username or typing == "username" else "Username"
-
+    button_text_username = username if username or typing == "username" else "Username" # Placeholder text for username unless the user starts to type 
+    
+    # If clicked the password becomes visible 
     if show_password_flag:
         button_text_password = password if password or typing == "password" else "Password"
     else:
         button_text_password = "*" * len(password) if password or typing == "password" else "Password"
 
+    # Draws buttons for the username and password to be entered
     clickable_button(screen, button_text_username, username_input_box, DARK_GREEN, WHITE)
     clickable_button(screen, button_text_password, password_input_box, DARK_GREEN, WHITE)
-
+    
     button_writing = "Hide" if show_password_flag else "Show"
     clickable_button(screen, button_writing, show_password_box, DARK_GREEN, WHITE)
 
+    # Buttons for changing between login and create account 
     create_account_pressed = clickable_button(screen, "Create Account", create_account_submit_box, DARK_GREEN, WHITE)
     back_to_login_pressed = clickable_button(screen, "Back to Login", create_box, DARK_GREEN, WHITE)
 
-    if error_message:
+    if error_message: # Displays an error message if an invalid username or password is entered 
         text_line(screen, error_message, ERROR_FONT, RED, 420, 500)
 
+     # Allows for changing between pages with time delay between clicking 
     if create_account_pressed and (current_time - last_click_time > CLICK_DELAY):
         game_state, error_message = new_account_verification(username, password)
         last_click_time = current_time
