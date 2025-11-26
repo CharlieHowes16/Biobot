@@ -27,20 +27,21 @@ def setup_database():
     ''')
 
     # Open the CSV file containing biology terms and definitions loading them into the database
-    #with open('biology_terms.csv', 'r') as file: # Allow for special characters
-        #file_reader = csv.reader(file, delimiter=";")
-        #next(file_reader)
+    with open('database/biology_terms.csv', 'r') as file:
+        file_reader = csv.reader(file, delimiter=";")
+        next(file_reader)
 
-        #for row in file_reader:
-            #if len(row) != 2:   # Skips any rows missing values or errors
-                #continue
-            #biology_cursor.execute(
-                #"INSERT INTO biology_notes (Terms, Definition) VALUES (?, ?)", row)
+        for row in file_reader:
+            if len(row) != 2:   # Skips any rows missing values or errors
+                continue
+            biology_cursor.execute(
+                "INSERT INTO biology_notes (Terms, Definition) VALUES (?, ?)", row)
 
     
     # Fetch biology key terms so they can be used for the flashcards and chatbot
-    #biology_cursor.execute("SELECT Terms, Definition FROM biology_notes")
-    #biology_notes = biology_cursor.fetchall()
+    biology_cursor.execute("SELECT Terms, Definition FROM biology_notes")
+    biology_notes = biology_cursor.fetchall()
+    
 
 
     # Close the connection to the databases
@@ -49,3 +50,5 @@ def setup_database():
 
     biology_database_connection.commit()
     biology_database_connection.close()
+
+    return biology_notes
