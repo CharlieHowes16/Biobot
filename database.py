@@ -1,8 +1,6 @@
 import sqlite3
 import csv
 
-# Connect to the user and biology databases or creates if they don't exist
-
 def setup_database():
     user_database_connection = sqlite3.connect('user_details_database.db')
     user_cursor = user_database_connection.cursor()
@@ -13,12 +11,25 @@ def setup_database():
     # Create new tables if they don't already exist for user details and the biology keywords and definitions
     user_cursor.execute('''
         CREATE TABLE IF NOT EXISTS user_details (
-            Username TEXT,
-            Password BLOB,
-            XP INTEGER DEFAULT 0
+            Username VARCHAR(20),
+            Password VARCHAR(20),
+            XP INTEGER DEFAULT 0,
+            LastLogin TEXT,
+            Streak INTEGER DEFAULT 0
         )
     ''')
 
+    user_cursor.execute('''
+        CREATE TABLE IF NOT EXISTS flashcard_progress (
+            Username TEXT, 
+            Term Text,
+            Confidence INTEGER,
+            PRIMARY KEY (username, term)
+                    
+        )
+    ''')
+    
+    biology_cursor.execute('DROP TABLE IF EXISTS biology_notes')
     biology_cursor.execute('''
         CREATE TABLE IF NOT EXISTS biology_notes (
             Terms TEXT,
@@ -42,7 +53,6 @@ def setup_database():
     biology_cursor.execute("SELECT Terms, Definition FROM biology_notes")
     biology_notes = biology_cursor.fetchall()
     
-
 
     # Close the connection to the databases
     user_database_connection.commit()
