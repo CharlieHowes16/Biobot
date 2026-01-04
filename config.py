@@ -8,6 +8,7 @@ GREEN = (147, 196, 125)
 DARK_GREEN = (116, 167, 99)
 RED = (255, 0, 0)
 GREY = (128, 128, 128)
+AMBER = (255, 191, 0)
 
 pygame.font.init() # Initialize the font 
 
@@ -57,3 +58,4 @@ def text_wrapping(text, width):
             current_line = word + ' '
     lines.append(current_line.strip())
     return '\n'.join(lines)
+
