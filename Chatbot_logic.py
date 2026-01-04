@@ -28,7 +28,7 @@ def biology_term_definition(collect_biology_term):
 
 # Removes any common words like the so sorting questions is more managable
 def blacklist_fillers(user_input):
-    filler_words = {"what", "is", "the", "a", "an", "define", "meaning", "of", "please"} # Words to blacklist 
+    filler_words = {"what", "is", "the", "a", "an", "define", "meaning", "of", "please", "why"} # Words to blacklist 
     words_entered = user_input.lower().split()
     filtered_words = [word for word in words_entered if word not in filler_words]
     return " ".join(filtered_words) # Rejoins the sentance without blacklisted words
