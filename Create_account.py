@@ -1,5 +1,6 @@
 import sqlite3
 import string
+import hashlib
 
 # Validates the username and password and adds them into the database if they are verified
 def new_account_verification(username, password):
@@ -15,6 +16,7 @@ def new_account_verification(username, password):
     else:
         create_connect = sqlite3.connect('user_details_database.db')
         create_cursor = create_connect.cursor()
+    
 
         # Check if username already exists
         create_cursor.execute("SELECT * FROM user_details WHERE Username = ?", (username,))
@@ -22,9 +24,12 @@ def new_account_verification(username, password):
             create_connect.close()
             return "Create_Account", "Username already exists"
         
+        hashed_password = hashlib.sha256(password.encode()).digest()
+        
 
         # Creates new user if the username hasnt been used before
-        create_cursor.execute("INSERT INTO user_details (Username, Password) VALUES (?, ?)", (username, password))
+        create_cursor.execute("INSERT INTO user_details (Username, Password) VALUES (?, ?)", (username, hashed_password))
         create_connect.commit()
         create_connect.close()
         return "Chatbot_Page", ""
+
